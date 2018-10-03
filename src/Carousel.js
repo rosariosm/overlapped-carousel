@@ -5,7 +5,7 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props)
       this.state = {
-        items: this.props.items,
+        items: this.refill_items(),
         active: this.props.active,
         direction: ''
       }
@@ -13,7 +13,7 @@ class Carousel extends React.Component {
       this.leftClick = this.moveLeft.bind(this)
   }
 
-  generateItems() {
+  generateItems = () => {
     var items = []
     var level
     for (var i = this.state.active - 2; i < this.state.active + 3; i++) {
@@ -28,8 +28,8 @@ class Carousel extends React.Component {
     }
     return items
   }
-    
-  moveLeft() {
+
+  moveLeft = () => {
     var newActive = this.state.active
     newActive--
     this.setState({
@@ -37,23 +37,34 @@ class Carousel extends React.Component {
       direction: 'left'
     })
   }
-    
-  moveRight() {
+
+  moveRight = () => {
     var newActive = this.state.active
     this.setState({
       active: (newActive + 1) % this.state.items.length,
       direction: 'right'
     })
   }
-    
+
+  refill_items = () => {
+     var items = this.props.items
+    if (items.length <= 5) {
+      while(items.length <= 5){
+        items = items.concat(this.props.items)
+      }
+    }
+    return items
+  }
+
   render() {
+    console.log(this.state.items)
     return(
-      <div id="carousel">        
+      <div id="carousel">
         <ul>
           {this.generateItems()}
         </ul>
         <div className="arrow arrow-left" onClick={this.leftClick}></div>
-        <div className="arrow arrow-right" onClick={this.rightClick}></div>                
+        <div className="arrow arrow-right" onClick={this.rightClick}></div>
       </div>
     )
   }

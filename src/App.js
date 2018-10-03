@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Carousel from './Carousel';
-import './App.css';
+//import './App.css';
+import './carusel.css'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Carousel items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} active={0}/>
+        <div className="carrusel-container">
+          <Carousel items={[1, 2, 3]} active={0}/>
+        </div>
       </div>
     );
   }
